@@ -1,35 +1,28 @@
 class Task:
-  
+  is_completed = False
+
   def __init__(
     self, 
     title, 
-    description = None,
+    note = None,
     due_date = None,
     recur = None,
     project = None,
-    labels = None,
-    priority = None,
-    completed_date = None
     ):
     self.title = title
-    self.description = description
-    self.due_date = due_date
+    self.note = note
+    self.date = due_date
     self.recur = recur
     self.project = project
-    self.labels = labels
-    self.priority = priority
-    self.completed_date = completed_date
 
   def to_db_tuple(self):
     t = (
       self.title,
-      self.description,
-      self.due_date,
+      self.note,
+      self.date,
       self.recur,
       self.project,
-      str(self.labels),
-      self.priority,
-      self.completed_date
+      self.is_completed
     )
     return t
 
