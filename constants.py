@@ -17,7 +17,7 @@ WHITE = '\u001b[37m'
 RESET = '\u001b[0m' # this reset color not a actual color
 
 
-HEADER_COLOR = 'blue' # only name like red, blue, green and yellow
+HEADER_COLOR = 'bright_magenta' # https://click.palletsprojects.com/en/8.0.x/api/#click.style for more colors
 PAST_COLOR = RED
 PRESENT_COLOR = GREEN
 FUTURE_COLOR = BLUE
