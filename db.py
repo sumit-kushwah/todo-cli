@@ -1,70 +1,65 @@
 import sqlite3
 
-con = sqlite3.connect('todo.db')
+from helper import cursor_to_dict_list
+class Database:
+    def __init__(self):
+        self.connection = sqlite3.connect('todo.db')
+        self.cursor = self.connection.cursor()
 
-from prettytable import from_db_cursor
+    def createTable(self):
+        self.cursor.execute("DROP TABLE tasks")
+        self.cursor.execute("""CREATE TABLE tasks (
+            title TEXT NOT NULL,
+            date TEXT,
+            time TEXT,
+            recur TEXT,
+            project TEXT,
+            is_completed BOOL
+        )""")
 
-c = con.cursor()
+    def createTask(self, task):
+        self.cursor.execute("INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?)", task.to_db_tuple())
 
-def createTable():
-    c.execute("""
-        DROP TABLE tasks;
-    """)
-    c.execute("""CREATE TABLE tasks (
-        title TEXT NOT NULL,
-        note TEXT,
-        date TEXT,
-        recur TEXT,
-        project TEXT,
-        is_completed BOOL
-    )
-    """)
-    con.commit()
-    con.close()
+    def deleteTask(self, id):
+        res = self.cursor.execute(f"""
+            DELETE FROM tasks where rowid = {id}
+        """).rowcount
+        return res
 
-def createTask(task):
-    c.execute("INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?)", task.to_db_tuple())
-    con.commit()
-    con.close()
+    def getTasks(self, date, project="inbox", completed=False):
+        query = f"""SELECT rowid, * 
+                        from tasks 
+                where project = '{project}' 
+                    AND date <= '{date}'
+                    AND is_completed = '{int(completed)}'
+                """
+        self.cursor.execute(query)
+        return cursor_to_dict_list(self.cursor)
+    
+    def getAllTasks(self, find="", completed=False):
+        query = f"""SELECT rowid, * 
+                        from tasks 
+                    where is_completed = '{int(completed)}'
+                    AND (
+                        title LIKE '%{find}%'
+                        OR date LIKE '%{find}%'
+                        OR time LIKE '%{find}%'
+                        OR recur LIKE '%{find}%'
+                        OR project LIKE '%{find}%'
+                    )
+                """
+        self.cursor.execute(query)
+        return cursor_to_dict_list(self.cursor)
 
-def deleteTask(id):
-    res = c.execute(f"""
-        DELETE FROM tasks where rowid = {id}
-    """).rowcount
-    con.commit()
-    con.close()
-    return res
+    def changeTaskProject(self, id, project):
+        self.cursor.execute(f"UPDATE tasks SET project = '{project}' where rowid = '{id}'")
 
-def getTasks(filters, skipFilter=False):
-    if skipFilter:
-        query = "SELECT * from tasks"
-    else:
-        filters['project']
-        whereclause = f" project = '{filters['project']}' "
-        for field, value in filters.items():
-            if field == 'project': continue
-            if field == 'due_date':
-                whereclause += f"AND {field} <= '{value}'"
-                continue
-            whereclause += f"AND {field} = '{value}'"
-        query = f"SELECT * from tasks where {whereclause}"
-    c.execute(query)
-    mytable = from_db_cursor(c)
-    mytable.align = "l"
-    print(mytable)
-    con.commit()
-    con.close()
-    return c
+    def getTask(self, id):
+        res = self.cursor.execute(f"""
+            SELECT rowid, * from tasks where rowid = {id}
+        """).fetchone()
+        return res
 
-def changeTaskProject(id, project):
-    c.execute(f"UPDATE tasks SET project = '{project}' where rowid = '{id}'")
-    con.commit()
-    con.close()
-
-def getTask(id):
-    res = c.execute(f"""
-        SELECT rowid, * from tasks where rowid = {id}
-    """).fetchone()
-    con.commit()
-    con.close()
-    return res
+    def __del__ (self):
+        self.connection.commit()
+        self.connection.close()

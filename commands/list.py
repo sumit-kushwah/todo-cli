@@ -1,12 +1,21 @@
-import click, db
+import click
+from commands.helper import tabulateList
 from constants import DATE_FORMATS, TODAY, DEFAULT_PROJECT
+from db import Database
+from task import Task
+from tabulate import tabulate
 
 @click.command('list', help="List tasks.")
 @click.option('--date', default=TODAY, type=click.DateTime(formats=DATE_FORMATS))
-@click.option('-a', '--all', is_flag=True)
+@click.option('--completed', is_flag=True)
 @click.option('-p', '--project', default=DEFAULT_PROJECT)
-def List(project, date, all):
-  filters = {}
-  if (project): filters["project"] = project
-  if (date): filters["date"] = date
-  db.getTasks(filters, all)
+def List(date, project, completed):
+  db = Database()
+  items = db.getTasks(date, project, completed)
+  if len(items) > 0:
+    tasks = []
+    for item in items:
+      task = Task(item['title'], item['date'], item['time'], item['recur'], item['project'], item['rowid'], item['is_completed'])
+      tasks.append(task.to_list(['rowid', 'title', 'time', 'project']))
+    headers = ["Id", "Title", "Time", "Project"]
+    tabulateList(tasks, headers)
