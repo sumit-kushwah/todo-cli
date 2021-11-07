@@ -1,4 +1,5 @@
 from constants import FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY
+from helper import to_good_date, to_good_time
 
 class Task:
   def __init__(
@@ -41,9 +42,9 @@ class Task:
     if (field == 'title'):
       result = self.title
     if (field == 'date'):
-      result = self.date
+      result = to_good_date(self.date)
     if (field == 'time'):
-      result = self.time
+      result = to_good_time(self.time)
     if (field == 'recur'):
       result = self.recur
     if (field == 'project'):

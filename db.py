@@ -29,9 +29,10 @@ class Database:
     def getTasks(self, date, project="inbox", completed=False):
         query = f"""SELECT rowid, * 
                         from tasks 
-                where project = '{project}' 
+                WHERE project = '{project}' 
                     AND date <= '{date}'
                     AND is_completed = '{int(completed)}'
+                ORDER BY time desc
                 """
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)
