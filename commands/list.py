@@ -8,7 +8,7 @@ from tabulate import tabulate
 @click.command('list', help="List tasks.")
 @click.option('--date', default=TODAY, type=click.DateTime(formats=DATE_FORMATS))
 @click.option('--completed', is_flag=True)
-@click.option('-p', '--project', default=DEFAULT_PROJECT)
+@click.option('-p', '--project')
 def List(date, project, completed):
   db = Database()
   items = db.getTasks(date, project, completed)
