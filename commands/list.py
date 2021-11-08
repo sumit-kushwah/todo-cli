@@ -1,6 +1,6 @@
 import click
 from commands.helper import tabulateList
-from constants import DATE_FORMATS, TODAY, DEFAULT_PROJECT
+from constants import DATE_FORMATS, TIME, TODAY, DEFAULT_PROJECT
 from db import Database
 from task import Task
 from tabulate import tabulate
@@ -17,5 +17,5 @@ def List(date, project, completed):
     for item in items:
       task = Task(item['title'], item['date'], item['time'], item['recur'], item['project'], item['rowid'], item['is_completed'])
       tasks.append(task.to_list(['rowid', 'title', 'time', 'project']))
-    headers = ["Id", "Title", "Time", "Project"]
+    headers = ["Id", "Title", TIME, "Project"]
     tabulateList(tasks, headers)
