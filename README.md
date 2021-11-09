@@ -1,3 +1,3 @@
 <p align="center">
-  <img src="media/todo.gif">
+  <img src="/media/todo.gif">
 </p>
