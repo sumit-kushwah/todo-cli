@@ -1,1 +1,3 @@
-![todo.gif](media/TODO.gif)
+<p align="center">
+  <img src="media/todo.gif">
+</p>
