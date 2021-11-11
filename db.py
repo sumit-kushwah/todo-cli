@@ -1,6 +1,7 @@
 import sqlite3
+from constants import TODAY
 
-from helper import cursor_to_dict_list
+from helper import cursor_to_dict_list, nextRecurDate
 class Database:
     def __init__(self):
         self.connection = sqlite3.connect('todo.db')
@@ -57,7 +58,20 @@ class Database:
         res = self.cursor.execute(f"""
             SELECT rowid, * from tasks where rowid = {id}
         """).fetchone()
-        return res
+        if not res: return res
+        cols = [col[0] for col in self.cursor.description]
+        return dict(zip(cols, res))
+        
+
+    def completeTask(self, id):
+        task = self.getTask(id)
+        if task:
+            if task['recur']:
+                new_date = nextRecurDate(task['date'], task['recur'])
+                query = f"update tasks set date = '{new_date}' where rowid = '{id}'"
+            else:
+                query = f"update tasks set is_completed = {not task['is_completed']} where rowid = '{id}'"
+            self.cursor.execute(query)
 
     def __del__ (self):
         self.connection.commit()

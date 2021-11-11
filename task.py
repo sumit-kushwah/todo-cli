@@ -1,4 +1,4 @@
-from constants import FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY
+from constants import CYAN, FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY, YELLOW
 from helper import to_good_date, to_good_time
 
 class Task:
@@ -56,6 +56,7 @@ class Task:
     
   
   def getColor(self):
+    if (self.is_completed): return CYAN
     if self.date < TODAY: return PAST_COLOR
     if self.date > TODAY: return FUTURE_COLOR
     return PRESENT_COLOR

@@ -7,7 +7,7 @@ from helper import to_good_date
 from task import Task
 
 @click.command('listall', help="List All tasks.")
-@click.option('--completed', is_flag=True)
+@click.option('-c', '--completed', is_flag=True)
 @click.option('-f', '--find', default="")
 def ListAll(find, completed):
   db = Database()

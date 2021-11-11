@@ -7,7 +7,7 @@ from constants import DEFAULT_PROJECT, DATE_FORMATS, TIME_FORMATS, TODAY, RECUR_
 @click.option('-p', '--project', default=DEFAULT_PROJECT)
 @click.option('-d', '--date', default=TODAY, type=click.DateTime(formats=DATE_FORMATS))
 @click.option('-t', '--time', type=click.DateTime(formats=TIME_FORMATS))
-@click.option('-r', '--recur', type=click.Choice(RECUR_CHOICES, case_sensitive=False))
+@click.option('-r', '--recur', type=click.INT)
 @click.argument('title')
 def Add(title, project, date, time, recur):
   if date: date = str(date.date())

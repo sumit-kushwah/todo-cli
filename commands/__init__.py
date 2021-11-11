@@ -5,4 +5,4 @@ from .list import List
 from .listall import ListAll
 from .move import Move
 from .reset import Reset
-from .show import Show
+from .complete import Complete

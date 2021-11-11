@@ -1,9 +1,10 @@
 import datetime
 
+TOMORROW = str(datetime.date.today() + datetime.timedelta(days=1))
 TODAY = str(datetime.date.today())
 TIME = datetime.datetime.now().strftime('%I:%M %p')
 DEFAULT_PROJECT = "inbox"
-RECUR_CHOICES = ["daily", "weekly", "sun", "mon", "tue", "wed", "thur", "fri", "sat"]
+RECUR_CHOICES = ["daily", "weekly", "monthly", "biweekly"]
 DATE_FORMATS = ['%d-%m-%y', '%d-%m-%Y', '%d.%m.%y', '%d.%m.%Y', "%d/%m/%y", "%d/%m/%Y", "%Y-%m-%d"]
 TIME_FORMATS = ['%H:%M', '%I:%M%p']
 
