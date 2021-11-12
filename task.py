@@ -1,5 +1,5 @@
 from constants import CYAN, FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY, YELLOW
-from helper import to_good_date, to_good_time
+from helper import getRecurText, to_good_date, to_good_time, wrapText
 
 class Task:
   def __init__(
@@ -40,13 +40,13 @@ class Task:
   def getFieldValue(self, field):
     result = None
     if (field == 'title'):
-      result = self.title
+      result = wrapText(self.title)
     if (field == 'date'):
       result = to_good_date(self.date)
     if (field == 'time'):
       result = to_good_time(self.time)
     if (field == 'recur'):
-      result = self.recur
+      result = getRecurText(self.recur)
     if (field == 'project'):
       result = self.project
     if (field == 'rowid'):

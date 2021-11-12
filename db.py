@@ -47,6 +47,7 @@ class Database:
                         OR recur LIKE '%{find}%'
                         OR project LIKE '%{find}%'
                     )
+                    order by date
                 """
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)

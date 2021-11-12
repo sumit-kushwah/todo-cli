@@ -1,4 +1,6 @@
 import datetime
+import textwrap
+import os
 
 from constants import TODAY, TOMORROW
 
@@ -30,3 +32,27 @@ def nextRecurDate(date, recur):
   while dt < datetime.datetime.now():
     dt = dt + datetime.timedelta(days=int(recur))
   return dt.strftime('%Y-%m-%d')
+
+def wrapText(value):
+  width = getWidthSize()
+  wrapper = textwrap.TextWrapper(width=width)
+  return wrapper.fill(text=value)
+
+def getWidthSize():
+  size = os.get_terminal_size()
+  return size.columns // 2
+
+def getRecurText(recur):
+  if (not recur): return '-'
+  recur = int(recur)
+  if recur == 1:
+    return 'Daily'
+  if recur == 7:
+    return 'Weekly'
+  if recur == 2:
+    return 'Other Day'
+  if recur == 14:
+    return 'Biweekly'
+  if recur == 30 or recur == 31:
+    return 'monthly'
+  return recur
