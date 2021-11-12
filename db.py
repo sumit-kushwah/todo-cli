@@ -51,9 +51,16 @@ class Database:
                 """
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)
-
-    def changeTaskProject(self, id, project):
-        self.cursor.execute(f"UPDATE tasks SET project = '{project}' where rowid = '{id}'")
+    
+    def updateTask(self, id, title=None, project=None, date=None, time=None, recur=None):
+        items = []
+        if title: items.append(f"title = '{title}'")
+        if project: items.append(f"project = '{project}'")
+        if date: items.append(f"date = '{date}'")
+        if time: items.append(f"time = '{time}'")
+        if recur is not None: items.append(f"recur = '{recur}'")
+        if len(items) == 0: return
+        self.cursor.execute(f"UPDATE tasks SET {', '.join(items)} where rowid = '{id}'")
 
     def getTask(self, id):
         res = self.cursor.execute(f"""

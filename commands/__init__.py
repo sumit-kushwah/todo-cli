@@ -6,3 +6,4 @@ from .listall import ListAll
 from .move import Move
 from .reset import Reset
 from .complete import Complete
+from .edit import Edit

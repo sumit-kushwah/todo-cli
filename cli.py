@@ -1,5 +1,5 @@
 import click
-from commands import Add, Update, Delete, List, Move, Reset, Complete, ListAll
+from commands import Add, Delete, List, Move, Reset, Complete, ListAll, Edit, Update
 from db import Database
 
 @click.group(invoke_without_command=True, help="This is your task manager")
@@ -14,6 +14,8 @@ def cli(delete, complete):
     db.completeTask(id)
 
 cli.add_command(Add)
+cli.add_command(Edit)
+cli.add_command(Update)
 cli.add_command(Delete)
 cli.add_command(List)
 cli.add_command(Complete)
