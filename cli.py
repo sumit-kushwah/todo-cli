@@ -13,11 +13,6 @@ def cli(delete, complete):
   for id in complete:
     db.completeTask(id)
 
-  if not delete and not complete:
-    ctx = click.get_current_context()
-    click.echo(ctx.get_help())
-    ctx.exit()
-
 cli.add_command(Add)
 cli.add_command(Delete)
 cli.add_command(List)
