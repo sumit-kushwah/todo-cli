@@ -5,7 +5,8 @@ setup(
   version='0.0.1',
   py_modules=['todo'],
   install_requires=[
-    'Click'
+    'Click',
+    'tabulate'
   ],
   entry_points={
     'console_scripts': [
