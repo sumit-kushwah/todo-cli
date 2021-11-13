@@ -1,5 +1,6 @@
 import datetime
 
+ALIAS = 't'
 TOMORROW = str(datetime.date.today() + datetime.timedelta(days=1))
 TODAY = str(datetime.date.today())
 TIME = datetime.datetime.now().strftime('%I:%M %p')

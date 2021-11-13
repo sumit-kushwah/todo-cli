@@ -1,4 +1,5 @@
 from setuptools import setup
+from constants import ALIAS
 
 setup(
   name='todo',
@@ -10,7 +11,7 @@ setup(
   ],
   entry_points={
     'console_scripts': [
-      'todo = cli:cli',
+      f'{ALIAS} = cli:cli',
     ]
   }
 )
