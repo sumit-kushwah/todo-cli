@@ -1,5 +1,4 @@
 import sqlite3
-from constants import TODAY
 
 from helper import cursor_to_dict_list, nextRecurDate
 class Database:
@@ -8,15 +7,18 @@ class Database:
         self.cursor = self.connection.cursor()
 
     def createTable(self):
-        self.cursor.execute("DROP TABLE tasks")
+        try:
+            self.cursor.execute("DROP TABLE tasks")
+        except:
+            pass
         self.cursor.execute("""CREATE TABLE tasks (
-            title TEXT NOT NULL,
-            date TEXT,
-            time TEXT,
-            recur TEXT,
-            project TEXT,
-            is_completed BOOL
-        )""")
+                title TEXT NOT NULL,
+                date TEXT,
+                time TEXT,
+                recur TEXT,
+                project TEXT,
+                is_completed BOOL
+            )""")
 
     def createTask(self, task):
         self.cursor.execute("INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?)", task.to_db_tuple())
