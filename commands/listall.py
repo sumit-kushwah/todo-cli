@@ -1,4 +1,4 @@
-import click
+import click, datetime
 from tabulate import tabulate
 from commands.helper import tabulateList
 from constants import TIME, TODAY
@@ -17,5 +17,7 @@ def ListAll(find, completed):
     for item in items:
       task = Task(item['title'], item['date'], item['time'], item['recur'], item['project'], item['rowid'], item['is_completed'])
       tasks.append(task.to_list(['rowid', 'title', 'date', 'time', 'recur', 'project']))
-    headers = ["Id", "Title", to_good_date(TODAY), TIME, "Recur", "Project"]
+    dt = datetime.datetime.strptime(TODAY, '%Y-%m-%d')
+    today = dt.strftime('%d %b')
+    headers = ["Id", "Title", today, TIME, "Recur", "Project"]
     tabulateList(tasks, headers)
