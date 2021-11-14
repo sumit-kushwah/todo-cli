@@ -8,8 +8,7 @@ setup(
   version='0.0.2',
   description='A perfect task manager.',
   py_modules=["todo"],
-  packages=find_packages(),
-  include_package_data=True,
+  package_dir={'': 'src'},
   long_description=long_description,
   long_description_content_type='text/markdown',
 
