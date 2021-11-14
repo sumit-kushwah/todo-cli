@@ -9,9 +9,10 @@ from tabulate import tabulate
 @click.option('--date', default=TODAY, type=click.DateTime(formats=DATE_FORMATS))
 @click.option('-c', '--completed', is_flag=True)
 @click.option('-p', '--project')
-def List(date, project, completed):
+@click.option('-s', '--sort', default="time", type=click.Choice(['project', 'time', 'rowid', 'title']))
+def List(date, project, completed, sort):
   db = Database()
-  items = db.getTasks(date, project, completed)
+  items = db.getTasks(date, project, completed, sort)
   if len(items) > 0:
     tasks = []
     for item in items:

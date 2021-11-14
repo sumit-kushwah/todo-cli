@@ -31,11 +31,11 @@ class Database:
         """).rowcount
         return res
 
-    def getTasks(self, date, project=None, completed=False):
+    def getTasks(self, date, project=None, completed=False, sort='time'):
         if project:
-            query = f"""SELECT rowid, * from tasks WHERE project = '{project}' AND date <= '{date}' AND is_completed = '{int(completed)}' ORDER BY time desc """
+            query = f"""SELECT rowid, * from tasks WHERE project = '{project}' AND date <= '{date}' AND is_completed = '{int(completed)}' ORDER BY {sort} """
         else:
-            query = f"""SELECT rowid, * from tasks WHERE date <= '{date}' AND is_completed = '{int(completed)}' ORDER BY time desc """
+            query = f"""SELECT rowid, * from tasks WHERE date <= '{date}' AND is_completed = '{int(completed)}' ORDER BY {sort} """
 
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)
