@@ -1,9 +1,11 @@
 import sqlite3
+import os
 
-from helper import cursor_to_dict_list, nextRecurDate
+from .helper import cursor_to_dict_list, nextRecurDate
+
 class Database:
     def __init__(self):
-        self.connection = sqlite3.connect('todo.db')
+        self.connection = sqlite3.connect(os.path.expanduser('~') + '/todo.db')
         self.cursor = self.connection.cursor()
 
     def createTable(self):

@@ -1,6 +1,6 @@
 import click
 from tabulate import tabulate
-from constants import HEADER_COLOR, TABLE_FORMAT
+from ..constants import HEADER_COLOR, TABLE_FORMAT
 
 def tabulateList(table, headers=[]):
   click.secho(

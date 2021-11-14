@@ -1,5 +1,5 @@
 import click
-from db import Database
+from ..db import Database
 
 @click.command('complete')
 @click.argument('id', type=int)

@@ -1,5 +1,5 @@
 import click
-from db import Database
+from ..db import Database
 
 @click.command('move', help="Move task to a project.")
 @click.argument('id', type=int)

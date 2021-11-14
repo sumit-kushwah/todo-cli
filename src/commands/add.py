@@ -1,7 +1,7 @@
 import click
-from db import Database
-from task import Task
-from constants import DEFAULT_PROJECT, DATE_FORMATS, TIME_FORMATS, TODAY, RECUR_CHOICES
+from ..db import Database
+from ..task import Task
+from ..constants import DEFAULT_PROJECT, DATE_FORMATS, TIME_FORMATS, TODAY, RECUR_CHOICES
 
 @click.command('add', help="Add a new task.")
 @click.option('-p', '--project', default=DEFAULT_PROJECT)

@@ -1,5 +1,5 @@
 import click
-from db import Database
+from ..db import Database
 
 @click.command('edit', help="Edit title of a task.")
 @click.argument('id', type=int)

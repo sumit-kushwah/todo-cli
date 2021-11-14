@@ -1,5 +1,5 @@
-from constants import CYAN, FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY, YELLOW
-from helper import getRecurText, to_good_date, to_good_time, wrapText
+from .constants import CYAN, FUTURE_COLOR, PAST_COLOR, PRESENT_COLOR, TODAY, YELLOW
+from .helper import getRecurText, to_good_date, to_good_time, wrapText
 
 class Task:
   def __init__(

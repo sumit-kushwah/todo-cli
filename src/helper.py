@@ -2,7 +2,7 @@ import datetime
 import textwrap
 import os
 
-from constants import TODAY, TOMORROW
+from .constants import TODAY, TOMORROW
 
 def cursor_to_dict_list(cursor):
   tasks = []
