@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
   name='todo-ksumit',
-  version='0.0.2',
+  version='0.0.3',
   description='A perfect task manager.',
   py_modules=["todo"],
   packages=find_packages(),
