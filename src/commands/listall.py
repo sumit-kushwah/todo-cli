@@ -9,9 +9,10 @@ from ..task import Task
 @click.command('listall', help="List All tasks.")
 @click.option('-c', '--completed', is_flag=True)
 @click.option('-f', '--find', default="")
-def ListAll(find, completed):
+@click.option('-s', '--sort', default="date", type=click.Choice(['date', 'project', 'time', 'rowid', 'title', 'recur']))
+def ListAll(find, completed, sort):
   db = Database()
-  items = db.getAllTasks(find, completed)
+  items = db.getAllTasks(find, completed, sort)
   if len(items) > 0:
     tasks = []
     for item in items:

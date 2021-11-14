@@ -40,7 +40,7 @@ class Database:
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)
     
-    def getAllTasks(self, find="", completed=False):
+    def getAllTasks(self, find="", completed=False, sort='date'):
         query = f"""SELECT rowid, * 
                         from tasks 
                     where is_completed = '{int(completed)}'
@@ -51,7 +51,7 @@ class Database:
                         OR recur LIKE '%{find}%'
                         OR project LIKE '%{find}%'
                     )
-                    order by date
+                    order by {sort}
                 """
         self.cursor.execute(query)
         return cursor_to_dict_list(self.cursor)
